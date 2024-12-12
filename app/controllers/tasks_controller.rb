@@ -38,12 +38,13 @@ end
   end
 
   def destroy
-    if @task.destroy
-      flash[:notice] = "スケジュールを削除しました。"
+    @task = Task.find_by(id: params[:id])
+    if @task
+      @task.destroy
+      redirect_to tasks_path, notice: 'タスクが削除されました。'
     else
-      flash[:alert] = "スケジュールの削除に失敗しました。"
+      redirect_to tasks_path, alert: 'タスクが見つかりませんでした。'
     end
-    redirect_to tasks_path
   end
   
   private
