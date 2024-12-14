@@ -1,5 +1,5 @@
 class TasksController < ApplicationController
-
+  before_action :set_task, only: [:edit, :update, :destroy]
   def index
     @tasks = Task.all
   end
@@ -50,7 +50,11 @@ end
   private
 
   def set_task
-    @task = Task.find(params[:id])
+    @task = Task.find_by(id: params[:id])
+    unless @task
+      flash[:alert] = "タスクが見つかりませんでした。"
+      redirect_to tasks_path
+    end
   end
 
   def task_params
