@@ -1,0 +1,30 @@
+<%= render "shared/partial" %>
+<h3>予約詳細</h3>
+
+<p>
+    <strong>タイトル:</strong>
+    <%= @task.title %>
+</p>
+
+<p>
+    <strong>開始日:</strong>
+    <%= @task.start_date.present? ? @task.start_date.strftime("%Y/%m/%d") : "" %>
+</p>
+
+<p>
+    <strong>終了日:</strong>
+    <%= @task.end_date.present? ? @task.end_date.strftime("%Y/%m/%d") : "" %>
+</p>
+
+<p>
+    <strong>終日:</strong>
+    <%= @task.is_all_day ? "○" : "" %>
+</p>
+
+<p>
+    <strong>メモ</strong>
+    <%= @task.memo %>
+</p>
+
+<%= link_to '一覧に戻る', tasks_path %> |
+<%= link_to '編集', edit_task_path(@task) %>

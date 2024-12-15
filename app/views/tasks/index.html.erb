@@ -1,0 +1,37 @@
+<%= render "shared/partial" %>
+<h3>予約一覧</h3>
+
+<table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>タイトル</th>
+            <th>開始日</th>
+            <th>終了日</th>
+            <th>終日</th>
+            <th>更新日時</th>
+            <th></th>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+
+    <tbody>
+        <% @tasks.each do |task| %>
+            <tr>
+                <td><%= task.id %></td>
+                <td><%= task.title %></td>
+                <td><%= task.start_date.present? ? task.start_date.strftime("%Y/%m/%d") : "" %></td>
+                <td><%= task.end_date.present? ? task.end_date.strftime("%Y/%m/%d") : "" %></td>
+                <td><%= task.is_all_day ? "○" : "" %></td>
+                <td><%= task.updated_at.strftime("%Y/%m/%d %H:%M") %></td>
+
+                <td><%= button_to '詳細', task_path(task), method: :get %></td>
+                <td><%= button_to '編集', edit_task_path(task), method: :get %></td>
+                <td><%= button_to '削除', task_path(task), method: :delete, data: { confirm: '予定を削除しますか？' }, class: 'delete-btn' %></td>
+            </tr>
+        <% end %>
+    </tbody>
+</table>
+<p>予定合計数: <%= @tasks.count %></p>
+<p><%= link_to "新規登録", new_task_path %></p>
